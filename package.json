@@ -1,0 +1,33 @@
+{
+	"name": "@fabricio-191/images",
+	"version": "1.0.0-0",
+	"main": "./lib/index.js",
+	"typings": "./typings/index.d.ts",
+	"license": "Apache License 2.0",
+	"keywords": [
+		"images",
+		"reddit",
+		"discord"
+	],
+	"description": "A module to get images from different categories from reddit",
+	"author": {
+		"name": "Fabricio-191",
+		"email": "fabricio19110@gmail.com",
+		"url": "https://github.com/Fabricio-191/"
+	},
+	"deprecated": false,
+	"scripts": {
+		"lint": "eslint . --fix",
+		"git": "git pull && git add . && git commit -m - && git push"
+	},
+	"funding": {
+		"type": "patreon",
+		"url": "https://www.patreon.com/fabricio_191"
+	},
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^4.20.0",
+		"@typescript-eslint/parser": "^4.20.0",
+		"babel-eslint": "^10.1.0",
+		"eslint": "^7.22.0"
+	}
+}
