@@ -265,7 +265,7 @@ module.exports = {
 		],
 		'new-parens': [
 			'error',
-			'never'
+			'always'
 		],
 		'wrap-iife': [
 			'error',

@@ -564,5 +564,6 @@
 		"spoiler": "SPOILER",
 		"locked": "LOCKED",
 		"stickied": "STICKIED"
-	}
+	},
+	"SEARCH_SORTS": ["relevance", "hot", "top", "new", "comments"]
 }
