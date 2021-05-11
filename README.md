@@ -1,5 +1,7 @@
 ![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?color=white&style=for-the-badge)
 
+# This is actual trash, i'm going to re-make this, but without the api in the middle, and the cache system inside the module
+
 ## These images are obtained from Reddit
 
 > If you have any error you can contact me on [Discord](https://discord.gg/zrESMn6)
