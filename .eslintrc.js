@@ -353,6 +353,9 @@ module.exports = {
 					this: {
 						before: true,
 					},
+					as: {
+						before: true,
+					},
 
 					function: {
 						after: true,
@@ -379,6 +382,9 @@ module.exports = {
 						after: true,
 					},
 					set: {
+						after: true,
+					},
+					of: {
 						after: true,
 					},
 				},
