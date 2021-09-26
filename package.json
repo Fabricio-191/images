@@ -27,12 +27,15 @@
 	"deprecated": false,
 	"scripts": {
 		"lint": "eslint . --fix",
-		"git": "git pull && git add . && git commit -m - && git push"
+		"git": "git pull && git add . && git commit -m - && git push",
+		"test": "node test/test.js",
+		"mocha": "mocha test/mocha.js --timeout 15000"
 	},
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "^4.20.0",
 		"@typescript-eslint/parser": "^4.20.0",
 		"babel-eslint": "^10.1.0",
-		"eslint": "^7.22.0"
+		"eslint": "^7.22.0",
+		"mocha": "^9.1.2"
 	}
 }
