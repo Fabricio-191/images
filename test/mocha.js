@@ -1,88 +1,96 @@
-// @ts-nocheck
+/* eslint-disable no-invalid-this */
 /* eslint-env mocha */
+// @ts-nocheck
 const Images = require('../lib');
 
+const isStr = str => typeof str === 'string' && str.length > 0;
 function isURL(str){
-	return isStr(str) && new URL(str);
+	if(!isStr(str)) return false;
+
+	try{
+		// eslint-disable-next-line no-new
+		new URL(str);
+		return true;
+	}catch(e){
+		return false;
+	}
 }
 
-function isStr(str){
-	return typeof str === 'string' && str.length > 0;
-}
-
-function isNumber(num){
-	return !isNaN(num);
-}
-
-const types = {
-	URL: str => types.string(str) && new URL(str),
-	string: str => typeof str === 'string' && str.length > 0,
-	number: num => !isNaN(num),
-	tags: tags => Array.isArray(tags) && tags.every(types.string),
-	image(img){
-
-	},
-};
-
-/*
-
-	'file.URL': isURL,
-	'file.width': isNumber,
-	'file.height': isNumber,
-*/
-
-const keys = {
-	URL: 'URL',
-	tags: 'tags',
-	rating: 'string',
-	file: 'image',
-	resized: 'image',
-	thumbnailURL: 'URL',
-};
-
+const ratings = ['explicit', 'questionable', 'safe', 'unknown'];
 function checkImage(image){
-	if()
+	if(typeof image.raw !== 'object'){
+		throw new Error('"image.raw" should be an object');
+	}
+	if(!isURL(image.URL)){
+		throw new Error('"image.URL" is not a valid URL');
+	}
+	if(!Array.isArray(image.tags) || !image.tags.every(isStr)){
+		throw new Error('"image.tags" are invalid');
+	}
+	if(!isStr(image.rating) || !ratings.includes(image.rating)){
+		throw new Error('"image.rating" is invalid');
+	}
+	if(typeof image.isVideo !== 'boolean'){
+		throw new Error('"image.isVideo" should be a boolean');
+	}
+	if(!isURL(image.file.URL)){
+		throw new Error('"image.file.URL" should be a URL');
+	}
+	if(typeof image.file.width !== 'number'){
+		throw new Error('"image.file.width" should be a number');
+	}
+	if(typeof image.file.height !== 'number'){
+		throw new Error('"image.file.height" should be a number');
+	}
+	if('resized' in image){
+		if(!isURL(image.resized.URL)){
+			throw new Error('"image.resized.URL" should be a URL');
+		}
+		if('width' in image.resized || 'height' in image.resized){
+			if(typeof image.resized.width !== 'number'){
+				throw new Error('"image.resized.width" should be a number');
+			}
+			if(typeof image.resized.height !== 'number'){
+				throw new Error('"image.resized.height" should be a number');
+			}
+		}
+	}
+	if(!isURL(image.thumbnailURL)){
+		throw new Error('"image.thumbnailURL" is not a valid URL');
+	}
+	if(Object.prototype.propertyIsEnumerable.call(image, 'raw')){
+		throw new Error('"image.raw" should not be enumerable');
+	}
 }
 
-describe('hosts', () => {
+const credentials = {
+	'behoimi.org': { user: 'bananagaming1245', pass: 'GV3#-dTkGtJJD!k' },
+	'e621.net': { user: 'bananagaming1245', pass: '8Eu5R4HF7qaTtANhewNXx73z' },
+	'e926.net': { user: 'bananagaming1245', pass: '8Eu5R4HF7qaTtANhewNXx73z' },
+};
+
+describe('Hosts', () => {
 	for(const host of Images.allHosts){
 		it(host, done => {
-			Images(host)
-				.then(images => images.forEach(checkImage))
+			Images(host, credentials[host])
+				.then(images => {
+					images.forEach(checkImage);
+				})
 				.then(done)
 				.catch(done);
 		});
 	}
 });
 
-function expect(value){
-	return {
-		toBe(val){
-			if(typeof value === 'function') value = value();
-			if(val !== value) throw new Error(`expected ${value} to be equal to ${val}`);
-		},
-		toBeType(type){
-			const t = typeof value;
+describe('Reddit', () => {
+	it('should work', function(done){
+		this.timeout(30000);
 
-			if(type !== t){
-				throw new Error(`expected ${value} to be type ${type} instead of ${t}`);
-			}
-		},
-		toNotThrowError(){
-			try{
-				value();
-			}catch(e){
-				throw Error('expected fn not to throw an exception');
-			}
-		},
-		toThrowError(){
-			try{
-				value();
-			}catch(e){
-				return;
-			}
-
-			throw Error('expected fn to throw an exception');
-		},
-	};
-}
+		Promise.all([
+			Images.reddit.getFromSubreddit('memes'),
+			Images.reddit.search('runescape'),
+		])
+			.then(() => done())
+			.catch(done);
+	});
+});
