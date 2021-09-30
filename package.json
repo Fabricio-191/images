@@ -29,7 +29,8 @@
 		"lint": "eslint . --fix",
 		"git": "git pull && git add . && git commit -m - && git push",
 		"test": "node test/test.js",
-		"mocha": "mocha test/mocha.js --timeout 15000"
+		"mocha": "mocha test/mocha.js --timeout 10000",
+		"all": "npm run lint && npm run mocha && npm run git"
 	},
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "^4.20.0",

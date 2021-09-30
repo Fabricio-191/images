@@ -210,7 +210,6 @@ module.exports = {
 		'default-case': 'error',
 		'default-case-last': 'error',
 		'default-param-last': 'error',
-		'guard-for-in': 'error',
 		'grouped-accessor-pairs': 'error',
 		'max-classes-per-file': [
 			'error',
@@ -331,6 +330,9 @@ module.exports = {
 					from: {
 						before: true,
 						after: true,
+					},
+					delete: {
+						before: true,
 					},
 
 					continue: {
