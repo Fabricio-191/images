@@ -21,12 +21,13 @@ function get(url){
 	});
 }
 
-const hostsToTest = Images.allHosts;
+const hostsToTest = Images.allHosts.slice(0, 3);
 const checkAllImages = false;
 
 describe('Reddit', function(){
 	this.timeout(25000);
 	this.slow(15000);
+
 	it('getFromSubreddit', async function(){
 		const images = await Images.reddit.getFromSubreddit('memes');
 
@@ -55,8 +56,8 @@ describe('Reddit', function(){
 });
 
 describe("Booru's", function(){
-	this.timeout(25000);
-	this.slow(15000);
+	this.timeout(20000);
+	this.slow(10000);
 
 	for(const host of hostsToTest){
 		it(host, async () => {

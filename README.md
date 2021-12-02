@@ -58,6 +58,8 @@ Images.reddit.getFromSubreddit('memes')
 ```js
 {
   URL: 'https://safebooru.org/index.php?page=post&s=view&id=3534899',
+  rating: 'safe',
+  isVideo: false,
   tags: [
     '1girl',
     'absurdres',
@@ -67,7 +69,7 @@ Images.reddit.getFromSubreddit('memes')
     'bodysuit',
     'breasts',
     'covered_navel',
-    'dungeon_ni_deai_wo_motomeru_no_wa_machigatteiru_darou_ka',
+    'dungeon_ni_deai_wo_motomeru_no_wa_machigatteiru_darou_ka',  
     'eating',
     'eyebrows_visible_through_hair',
     'food',
@@ -94,19 +96,17 @@ Images.reddit.getFromSubreddit('memes')
     'white_background',
     'yellow_eyes'
   ],
-  rating: 'safe',
-  isVideo: false,
-  image: {
+  file: {
+    URL: 'https://safebooru.org/images/3398/4a8ea78b192d93f16c5a184abd82e33a9d909219.jpg',
     width: 3200,
-    height: 4500,
-    URL: 'https://safebooru.org/images/3398/4a8ea78b192d93f16c5a184abd82e33a9d909219.jpg?3534899'
+    height: 4500
   },
   resized: {
-    URL: 'https://safebooru.org/samples/3398/sample_4a8ea78b192d93f16c5a184abd82e33a9d909219.jpg?3534899',
+    URL: 'https://safebooru.org/samples/3398/sample_4a8ea78b192d93f16c5a184abd82e33a9d909219.jpg',
     width: 850,
     height: 1195
   },
-  lowURL: null
+  thumbnailURL: 'https://safebooru.org/thumbnails/3398/thumbnail_4a8ea78b192d93f16c5a184abd82e33a9d909219.jpg'
 }
 ```
 
@@ -114,9 +114,9 @@ Images.reddit.getFromSubreddit('memes')
 
 ```js
 {
+  URL: 'https://www.reddit.com/r/memes/comments/pu8z3e/well_its_a_little_over_4000_now/',
   title: 'Well it’s a little over 4000 now',
-  URL: 'https://i.redd.it/zoh85wraocp71.jpg',
-  postURL: 'https://www.reddit.com/r/memes/comments/pu8z3e/well_its_a_little_over_4000_now/',
+  fileURL: 'https://i.redd.it/zoh85wraocp71.jpg',
   domain: 'i.redd.it',
   thumbnail: {
     URL: 'https://b.thumbs.redditmedia.com/5IB2j9QQ049_meZS8cKYYRHoOj3JKwOA3hgk7E44dUM.jpg',
@@ -128,9 +128,9 @@ Images.reddit.getFromSubreddit('memes')
 
 ```js
 {
+  URL: 'https://www.reddit.com/r/memes/comments/pu8nlu/gonna_sniff_these_coke/',  
   title: 'gonna sniff these coke',
-  URL: 'https://v.redd.it/hifa8frikcp71',
-  postURL: 'https://www.reddit.com/r/memes/comments/pu8nlu/gonna_sniff_these_coke/',  
+  fileURL: 'https://v.redd.it/hifa8frikcp71',
   domain: 'v.redd.it',
   thumbnail: {
     URL: 'https://b.thumbs.redditmedia.com/CvMcpslLvbCIJa_xsUPD_A-gbSCg6EsGnMUf5xmb91c.jpg',
