@@ -4,32 +4,32 @@
 /* eslint-disable no-console */
 // @ts-nocheck
 const Images = require('../lib');
-const { fetch } = require('../lib/modules/utils.js');
 
-function test(host, video, opts = {}){
-	(
-		host === 'reddit' ?
-			Images.reddit.getFromSubreddit('nsfw') :
-			Images(host, opts)
-	)
-		.then(images => {
-			const img = images.find(x => (video ? x.video : !x.video)) || null;
-			console.log(img.raw, img);
+(async function(){
+	const obj = {};
 
-			return images;
-		})
-		.catch(console.error);
-}
+	for(const host of Images.hosts){
+		try{
+			const [img] = await Images(host);
+			obj[host] = img;
+		}catch(e){
+			obj[host] = e.message;
+		}
+	}
 
-function save(data){
+	console.log('End');
 	require('fs').writeFileSync(
-		require('path').join(__dirname, './temp.json'),
-		JSON.stringify(data, null, '  ')
+		require('path').join(__dirname, './temp.js'),
+		`module.exports = ${
+			require('util').inspect(obj, {
+				depth: Infinity,
+				maxArrayLength: Infinity,
+			})
+		}`
 	);
-}
+})();
 
-// test('reddit')
-
+/*
 (async function(){
 	const reddits = [
 		'food',
@@ -57,7 +57,10 @@ function save(data){
 		)
 	);
 
-	save(classify(results.map(Image)));
+	require('fs').writeFileSync(
+		require('path').join(__dirname, './temp.json'),
+		JSON.stringify(classify(results.map(Image)), null, '  ')
+	);
 });
 
 const keys = [
@@ -229,32 +232,4 @@ function classify(images){
 
 	return d;
 }
-
-Images('safebooru.org', { query: 'aiz_wallenstein' })
-	.then(images => {
-		console.log(images[0]);
-	})
-	.catch(console.error);
-Images.reddit.getFromSubreddit('memes')
-	.then(images => {
-		console.log(images[0]);
-	})
-	.catch(console.error);
-
-/*
-;(async function(){
-	const obj = {};
-
-	for(const host of Images.allHosts){
-		try{
-			const [img] = await Images(host);
-			obj[host] = img;
-		}catch(e){
-			obj[host] = e.message;
-		}
-	}
-
-	console.log('End');
-	save(obj);
-});
 */

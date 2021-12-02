@@ -21,7 +21,7 @@ function get(url){
 	});
 }
 
-const hostsToTest = Images.allHosts.slice(0, 3);
+const hostsToTest = Images.hosts; // .slice(0, 3);
 const checkAllImages = false;
 
 describe('Reddit', function(){
