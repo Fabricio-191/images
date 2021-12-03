@@ -5,6 +5,7 @@
 // @ts-nocheck
 const Images = require('../lib');
 
+/*
 (async function(){
 	const obj = {};
 
@@ -27,9 +28,8 @@ const Images = require('../lib');
 			})
 		}`
 	);
-})();
+});
 
-/*
 (async function(){
 	const reddits = [
 		'food',

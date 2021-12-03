@@ -21,7 +21,7 @@ function get(url){
 	});
 }
 
-const hostsToTest = Images.hosts; // .slice(0, 3);
+const hostsToTest = Images.hosts;
 const checkAllImages = false;
 
 describe('Reddit', function(){
@@ -118,9 +118,6 @@ async function checkRedditImage(image){
 	}else{
 		errors.push("'image.URL' must be a URL");
 	}
-	if(!isURL(image.postURL)){
-		errors.push("'image.postURL' must be a URL");
-	}
 	if(!isStr(image.domain)){
 		errors.push("'image.domain' must be a string");
 	}
@@ -140,8 +137,6 @@ async function checkRedditImage(image){
 		if(isNaN(image.thumbnail.height)){
 			errors.push('"image.thumbnail.height" should be a number');
 		}
-	}else{
-		errors.push("'image.thumbnail' is missing");
 	}
 	if('video' in image){
 		if(isURL(image.video.URL)){

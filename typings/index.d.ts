@@ -3,8 +3,6 @@ import { RequestOptions } from 'https';
 declare module '@fabricio-191/images' {
 	type obj = Record<string, unknown>; // object but better
 
-	type rating = 'safe' | 'questionable' | 'explicit' | 'unknown';
-
 	namespace reddit{
 		interface Image{
 			URL: string;
@@ -39,7 +37,11 @@ declare module '@fabricio-191/images' {
 		}
 
 		interface Options{
-
+			limit?: number;
+			after?: string;
+			before?: string;
+			pass?: string;
+			user?: string;
 		}
 
 		export function search(
@@ -55,6 +57,34 @@ declare module '@fabricio-191/images' {
 
 		export function subredditExists(subreddit: string): Promise<boolean>;
 	}
+
+	type rating = 'safe' |
+		'unknown' |
+		'explicit' |
+		'questionable';
+
+	type validHost = 'e621.net' |
+		'e926.net' |
+		'tbib.org' |
+		'yande.re' |
+		'rule34.xxx' |
+		'xbooru.com' |
+		'gelbooru.com' |
+		'hypnohub.net' |
+		'konachan.com' |
+		'konachan.net' |
+		'safebooru.org' |
+		'lolibooru.moe' |
+		'mspabooru.com' |
+		'derpibooru.org' |
+		'rule34.paheal.net' |
+		'danbooru.donmai.us' |
+		'safebooru.donmai.us' |
+		'www.sakugabooru.com' |
+		'shimmie.shishnet.org' |
+		'booru.allthefallen.moe' |
+		'cascards.fluffyquack.com' |
+		'www.booru.realmofastra.ca';
 
 	interface Image {
 		URL?: string;
@@ -74,6 +104,6 @@ declare module '@fabricio-191/images' {
 		raw: obj;
 	}
 
-	export default function main(host: string, options: Options): Promise<Image[]>;
-	export const hosts: string[];
+	export default function main(host: validHost, options: Options): Promise<Image[]>;
+	export const hosts: validHost[];
 }
