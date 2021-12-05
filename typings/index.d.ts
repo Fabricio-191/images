@@ -36,6 +36,11 @@ declare module '@fabricio-191/images' {
 			}
 		}
 
+		interface SearchOptions{
+			subreddit?: string;
+			limit?: number;
+		}
+
 		interface Options{
 			limit?: number;
 			after?: string;
@@ -46,7 +51,7 @@ declare module '@fabricio-191/images' {
 
 		export function search(
 			searchString: string,
-			options?: Options
+			options?: SearchOptions
 		): Promise<Array<Image | Video>>;
 
 		export function getFromSubreddit(
@@ -104,6 +109,14 @@ declare module '@fabricio-191/images' {
 		raw: obj;
 	}
 
-	export default function main(host: validHost, options: Options): Promise<Image[]>;
+	interface Options {
+		query?: string;
+		user?: string;
+		pass?: string;
+		page?: number;
+		limit?: number;
+	}
+
+	export default function main(host: validHost, options?: Options): Promise<Image[]>;
 	export const hosts: validHost[];
 }

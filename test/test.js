@@ -5,6 +5,8 @@
 // @ts-nocheck
 const Images = require('../lib');
 
+Images('rule34.xxx')
+	  .then(console.log);
 /*
 (async function(){
 	const obj = {};
