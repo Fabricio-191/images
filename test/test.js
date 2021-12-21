@@ -5,33 +5,6 @@
 // @ts-nocheck
 const Images = require('../lib');
 
-Images('rule34.xxx')
-	  .then(console.log);
-/*
-(async function(){
-	const obj = {};
-
-	for(const host of Images.hosts){
-		try{
-			const [img] = await Images(host);
-			obj[host] = img;
-		}catch(e){
-			obj[host] = e.message;
-		}
-	}
-
-	console.log('End');
-	require('fs').writeFileSync(
-		require('path').join(__dirname, './temp.js'),
-		`module.exports = ${
-			require('util').inspect(obj, {
-				depth: Infinity,
-				maxArrayLength: Infinity,
-			})
-		}`
-	);
-});
-
 (async function(){
 	const reddits = [
 		'food',
@@ -42,30 +15,28 @@ Images('rule34.xxx')
 		'gaming',
 		'anime',
 		'art',
-
 		'movies',
 		'mealtimevideos',
 		'videos',
 		'dankvideos',
-
 		'gifs',
 		'gif',
 		'reactiongifs',
 	];
-
 	const results = [].concat(
 		...await Promise.all(
 			reddits.map(r => Images.reddit.getFromSubreddit(r))
 		)
 	);
-
 	require('fs').writeFileSync(
 		require('path').join(__dirname, './temp.json'),
 		JSON.stringify(classify(results.map(Image)), null, '  ')
 	);
-});
+})();
 
 const keys = [
+	'link_flair_template_id',
+	'link_flair_text',
 	'approved_at_utc',
 	'author_fullname',
 	'saved',
@@ -180,22 +151,17 @@ const keys = [
 	// 'thumbnail_height',
 	// 'thumbnail_width',
 ];
-
 function Image(data){
 	for(const key of keys){
 		delete data[key];
 	}
-
 	const obj = {};
 	const keys2 = Object.keys(data).sort();
-
 	for(const key of keys2){
 		obj[key] = data[key];
 	}
-
 	return obj;
 }
-
 function classify(images){
 	const data = require('./temp.json');
 	Object.values(data).forEach(data => {
@@ -205,16 +171,13 @@ function classify(images){
 			);
 		});
 	});
-
 	const d = images.reduce((acc, image) => {
 		const hint = image.post_hint;
 		if(!acc[hint]) acc[hint] = [];
-
 		const keys = JSON.stringify(Object.keys(image).sort());
-
 		const result = acc[hint].find(x => x.keys === keys);
 		if(result){
-			if(result.more.length < 10){
+			if(result.more.length < 100){
 				result.more.push(image);
 			}
 		}else acc[hint].push({
@@ -222,16 +185,12 @@ function classify(images){
 			more: [],
 			keys,
 		});
-
 		return acc;
 	}, data);
-
 	Object.values(d).forEach(data => {
 		data.forEach(x => {
 			delete x.keys;
 		});
 	});
-
 	return d;
 }
-*/

@@ -3,6 +3,13 @@ import { RequestOptions } from 'https';
 declare module '@fabricio-191/images' {
 	type obj = Record<string, unknown>; // object but better
 
+	interface BasicImage {
+		URL: string;
+		width?: number;
+		height?: number;
+	}
+
+	/*
 	namespace reddit{
 		interface Image{
 			URL: string;
@@ -10,11 +17,7 @@ declare module '@fabricio-191/images' {
 			domain: string;
 			nsfw: boolean;
 			raw: obj;
-			thumbnail?: {
-				URL: string;
-				width: number;
-				height: number;
-			}
+			thumbnail?: BasicImage;
 			fileURL: string;
 		}
 		interface Video{
@@ -23,11 +26,7 @@ declare module '@fabricio-191/images' {
 			domain: string;
 			nsfw: boolean;
 			raw: obj;
-			thumbnail?: {
-				URL: string;
-				width: number;
-				height: number;
-			}
+			thumbnail?: BasicImage;
 			video: {
 				URL: string;
 				width: number;
@@ -62,6 +61,7 @@ declare module '@fabricio-191/images' {
 
 		export function subredditExists(subreddit: string): Promise<boolean>;
 	}
+	*/
 
 	type rating = 'safe' |
 		'unknown' |
@@ -92,31 +92,34 @@ declare module '@fabricio-191/images' {
 		'www.booru.realmofastra.ca';
 
 	interface Image {
-		URL?: string;
+		URL: string;
 		tags: string[];
-		rating?: rating;
-		file: {
-			URL: string;
-			width: number;
-			height: number;
-		};
-		resized?: {
-			URL: string;
-			width?: number;
-			height?: number;
-		};
+		rating: rating;
+		file: BasicImage;
+		resized?: BasicImage;
 		thumbnailURL: string;
 		raw: obj;
 	}
 
 	interface Options {
 		query?: string;
+		limit?: number;
+		page?: number;
 		user?: string;
 		pass?: string;
-		page?: number;
-		limit?: number;
 	}
 
-	export default function main(host: validHost, options?: Options): Promise<Image[]>;
+	export default function main(
+		host: validHost,
+		options?: Options,
+		requestOptions?: RequestOptions
+	): Promise<Image[]>;
+
+	export function prepare(
+		host: validHost,
+		options?: Options,
+		requestOptions?: RequestOptions
+	): () => Promise<Image[]>;
+
 	export const hosts: validHost[];
 }

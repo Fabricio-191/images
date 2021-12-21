@@ -1,21 +1,29 @@
 ![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?color=white&style=for-the-badge)
+<a href="https://www.buymeacoffee.com/Fabricio191" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="28" width="135"></a>
+[![Discord](https://img.shields.io/discord/555535212461948936?style=for-the-badge&color=7289da)](https://discord.gg/zrESMn6)
 
 A module to get images from some booru's and reddit
 
-## Use example
+# Booru's
 
 ```js
 const Images = require('@fabricio-191/images');
 
-Images('safebooru.org', { query: 'aiz_wallenstein' })
+Images('safebooru.org', options)
   .then(images => {
     console.log(images[0]);
   })
   .catch(console.error);
+```
 
-Images.reddit.getFromSubreddit('memes')
+Other method of use: (better if you want to make the same query multiple times)
+
+```js
+const query = Images.prepare('safebooru.org', options);
+
+query()
   .then(images => {
-     console.log(images[0]);
+    console.log(images[0]);
   })
   .catch(console.error);
 ```
@@ -59,13 +67,33 @@ console.log(Images.hosts);
 </details>
 </br>
 
-### Image example
+## Options
+
+```js
+{
+  query: '', //https://gelbooru.com/index.php?page=wiki&s=view&id=26263
+  limit: 100,
+  page: 1,
+  user: '',
+  pass: '',
+}
+```
+
+(everything is optional)
+
+* `query`: the string containing the tags to search for ([cheatsheet](https://gelbooru.com/index.php?page=wiki&s=view&id=26263), aplies for most of hosts)
+* `limit`: the number of images to get, the maximum changes depending on the host, for default is the max amount in each host
+* `page`: the page to get for default it's the first/latest
+* `user`: username for authentication on the host
+* `pass`: password/api key for authentication on the host
+
+## Image example
 
 ```js
 {
   URL: 'https://safebooru.org/index.php?page=post&s=view&id=3534899',
   rating: 'safe',
-  isVideo: false,
+  type: 'image',
   tags: [
     '1girl',
     'absurdres',
@@ -116,7 +144,46 @@ console.log(Images.hosts);
 }
 ```
 
-### Reddit examples
+the resized image may not exists
+
+# Reddit
+
+```js
+Images.reddit.getFromSubreddit('memes', options)
+  .then(images => {
+     console.log(images[0]);
+  })
+  .catch(console.error);
+
+Images.reddit.search('red hot chili peppers', options)
+  .then(images => {
+     console.log(images[0]);
+  })
+  .catch(console.error);
+```
+
+## Options
+
+```js
+{
+  query: '',
+  limit: 100,
+  page: 1,
+  user: '',
+  pass: '',
+}
+```
+
+(everything is optional)
+
+* `query`: the query to search for
+* `limit`: the number of images to get, the maximum changes depending on the host, for default is the max amount in each host
+* `after`:
+* `before`:
+* `user`: username for authentication on the host
+* `pass`: password/api key for authentication on the host
+
+## Image example
 
 ```js
 {
@@ -124,7 +191,7 @@ console.log(Images.hosts);
   title: 'Please dont',
   domain: 'i.redd.it',
   nsfw: false,
-  thumbnail: {
+  thumbnail: { // ~
     URL: 'https://b.thumbs.redditmedia.com/TLBQ-mWFCw8W5YTUYXFVMQmRlOLolq9E3f1j2G29xXw.jpg', 
     height: 140,
     width: 140
@@ -139,7 +206,7 @@ console.log(Images.hosts);
   title: 'What’s More Thanksgiving Than Tossing a 72lb Watermelon From the Silo?',
   domain: 'v.redd.it',
   nsfw: false,
-  thumbnail: {
+  thumbnail: { // ~
     URL: 'https://b.thumbs.redditmedia.com/eRPQcuiuuzGx27qyZvXrpfmm-jOSpqGplMoXXiPE57Y.jpg',   
     height: 140,
     width: 140
@@ -153,9 +220,10 @@ console.log(Images.hosts);
 }
 ```
 
-> If you have any error you can contact me on [Discord](https://discord.gg/zrESMn6)
+## To-Do
 
-### To-Do
-
+* Improve parsing of reddit posts
 * Authentication for reddit ([OAuth2](https://github.com/reddit-archive/reddit/wiki/OAuth2))
 * Authentication for booru's
+
+> If you have any error you can contact me on [Discord](https://discord.gg/zrESMn6)
