@@ -3,7 +3,7 @@
 /* eslint-disable prefer-arrow-callback */
 /* eslint-env mocha */
 // @ts-nocheck
-const Images = require('../lib');
+const Images = require('../lib/sites');
 /*
 const https = require('https'), http = require('http');
 

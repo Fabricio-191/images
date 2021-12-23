@@ -3,7 +3,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
 // @ts-nocheck
-const Images = require('../lib');
+const Images = require('../lib/sites');
 
 (async function(){
 	const reddits = [
@@ -123,7 +123,6 @@ const keys = [
 	'subreddit_type',
 	'gallery_data',
 	'author_cakeday',
-	// 'link_flair_text',
 	// 'is_self',
 	// 'url_overridden_by_dest',
 	// 'treatment_tags',
