@@ -71,7 +71,7 @@ console.log(Images.hosts);
 
 ```js
 {
-  query: '', //https://gelbooru.com/index.php?page=wiki&s=view&id=26263
+  query: '',
   limit: 100,
   page: 1,
   user: '',
@@ -81,11 +81,14 @@ console.log(Images.hosts);
 
 (everything is optional)
 
-* `query`: the string containing the tags to search for ([cheatsheet](https://gelbooru.com/index.php?page=wiki&s=view&id=26263), aplies for most of hosts)
+* `query`: the string containing the tags to search for. ([cheatsheet](https://gelbooru.com/index.php?page=wiki&s=view&id=26263), aplies for most of hosts)
 * `limit`: the number of images to get, the maximum changes depending on the host, for default is the max amount in each host
-* `page`: the page to get for default it's the first/latest
+* `page`: the page to get
 * `user`: username for authentication on the host
 * `pass`: password/api key for authentication on the host
+
+Note:
+The amount of images may not coincide with the "limit" parameter because it indicates to the page how many images to return, but the module filters the deleted or pending images.
 
 ## Image example
 

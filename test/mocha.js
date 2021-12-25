@@ -1,9 +1,7 @@
-/* eslint-disable complexity */
-/* eslint-disable no-invalid-this */
-/* eslint-disable prefer-arrow-callback */
 /* eslint-env mocha */
+/* eslint-disable no-invalid-this */
 // @ts-nocheck
-const Images = require('../lib/sites');
+const Images = require('../');
 /*
 const https = require('https'), http = require('http');
 
@@ -22,9 +20,11 @@ function checkURL(url){
 			.end();
 	});
 }
+
 function isStr(str){
-	return typeof str === 'string' && str.length > 0;
+	return typeof str === 'string' && str.length > 0 && !['undefined', 'null', 'NaN'].includes(str);
 }
+
 function random(arr){
 	return arr[Math.floor(Math.random() * arr.length)];
 }
@@ -37,40 +37,43 @@ class MyError extends Error{
 	}
 }
 
-/*
 describe('Reddit', function(){
 	this.timeout(25000);
 	this.slow(15000);
 
-	it('getFromSubreddit', Images.reddit.getFromSubreddit('memes'));
-	it('search', Images.reddit.search('runescape'));
+	it('getFromSubreddit', () => Images.reddit.getFromSubreddit('memes'));
+	it('search', () => Images.reddit.search('runescape'));
 });
-*/
 
 describe("Booru's", function(){
-	this.timeout(20000);
-	this.slow(10000);
+	this.timeout(25000);
+	this.slow(15000);
 
 	for(const host of Images.hosts){
 		it(host, async () => {
-			const images = await Images(host, { limit: 30 });
+			for(let i = 0; i < 3; i++){
+				const images = await Images(host, { limit: 30 });
 
-			if(images.length === 0) throw new MyError('0 results');
-			if(images.length !== 30) throw new MyError('"limit" param is not working well');
+				if(images.length === 0) throw new MyError('0 results');
+				if(
+					images.length > 30 ||
+					images.length < 20
+				){
+					throw new MyError('"limit" param is not working well');
+				}
 
-			const URLs = new Set(images.map(i => i.URL));
+				if(host === 'rule34.paheal.net') return;
 
-			const secondPage = await Images(host, { limit: 30, page: 2 });
-			if(secondPage.some(img => URLs.has(img.URL))){
-				throw new MyError('"page" param is not working well');
-			}
+				const URLs = new Set(images.map(img => img.URL));
 
-			const firstPage = await Images(host, { limit: 30, page: 1 });
-			for(const img of firstPage) URLs.delete(img.URL);
+				const firstPage = await Images(host, { limit: 30, page: 1 });
+				for(const img of firstPage) URLs.delete(img.URL);
 
-			if(URLs.size !== 0){
-				throw new MyError('"page" param is not working well');
+				if(URLs.size !== 0){
+					throw new MyError('"page" param is not working well');
+				}
 			}
 		});
 	}
 });
+

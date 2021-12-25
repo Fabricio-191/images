@@ -9,7 +9,6 @@ declare module '@fabricio-191/images' {
 		height?: number;
 	}
 
-	/*
 	namespace reddit{
 		interface Image{
 			URL: string;
@@ -61,7 +60,6 @@ declare module '@fabricio-191/images' {
 
 		export function subredditExists(subreddit: string): Promise<boolean>;
 	}
-	*/
 
 	type rating = 'safe' |
 		'unknown' |
