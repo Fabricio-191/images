@@ -16,18 +16,6 @@ Images('safebooru.org', options)
   .catch(console.error);
 ```
 
-Other method of use: (better if you want to make the same query multiple times)
-
-```js
-const query = Images.prepare('safebooru.org', options);
-
-query()
-  .then(images => {
-    console.log(images[0]);
-  })
-  .catch(console.error);
-```
-
 <details>
 <summary>Valid hosts</summary>
 </br>
@@ -74,8 +62,6 @@ console.log(Images.hosts);
   query: '',
   limit: 100,
   page: 1,
-  user: '',
-  pass: '',
 }
 ```
 
@@ -83,9 +69,14 @@ console.log(Images.hosts);
 
 * `query`: the string containing the tags to search for. ([cheatsheet](https://gelbooru.com/index.php?page=wiki&s=view&id=26263), aplies for most of hosts)
 * `limit`: the number of images to get, the maximum changes depending on the host, for default is the max amount in each host
-* `page`: the page to get
+* `page`: the page to get (starts at 1)
+
+<!--
+  user: '',
+  pass: '',
 * `user`: username for authentication on the host
 * `pass`: password/api key for authentication on the host
+-->
 
 Note:
 The amount of images may not coincide with the "limit" parameter because it indicates to the page how many images to return, but the module filters the deleted or pending images.
@@ -147,86 +138,11 @@ The amount of images may not coincide with the "limit" parameter because it indi
 }
 ```
 
-the resized image may not exists
+Notes:
 
-# Reddit
-
-```js
-Images.reddit.getFromSubreddit('memes', options)
-  .then(images => {
-     console.log(images[0]);
-  })
-  .catch(console.error);
-
-Images.reddit.search('red hot chili peppers', options)
-  .then(images => {
-     console.log(images[0]);
-  })
-  .catch(console.error);
-```
-
-## Options
-
-```js
-{
-  query: '',
-  limit: 100,
-  page: 1,
-  user: '',
-  pass: '',
-}
-```
-
-(everything is optional)
-
-* `query`: the query to search for
-* `limit`: the number of images to get, the maximum changes depending on the host, for default is the max amount in each host
-* `after`:
-* `before`:
-* `user`: username for authentication on the host
-* `pass`: password/api key for authentication on the host
-
-## Image example
-
-```js
-{
-  URL: 'https://www.reddit.com/r/memes/comments/r6v3c0/please_dont/',
-  title: 'Please dont',
-  domain: 'i.redd.it',
-  nsfw: false,
-  thumbnail: { // ~
-    URL: 'https://b.thumbs.redditmedia.com/TLBQ-mWFCw8W5YTUYXFVMQmRlOLolq9E3f1j2G29xXw.jpg', 
-    height: 140,
-    width: 140
-  },
-  fileURL: 'https://i.redd.it/gru29iwt71381.jpg'
-}
-```
-
-```js
-{
-  URL: 'https://www.reddit.com/r/vid/comments/r2788h/whats_more_thanksgiving_than_tossing_a_72lb/',
-  title: 'What’s More Thanksgiving Than Tossing a 72lb Watermelon From the Silo?',
-  domain: 'v.redd.it',
-  nsfw: false,
-  thumbnail: { // ~
-    URL: 'https://b.thumbs.redditmedia.com/eRPQcuiuuzGx27qyZvXrpfmm-jOSpqGplMoXXiPE57Y.jpg',   
-    height: 140,
-    width: 140
-  },
-  video: {
-    URL: 'https://v.redd.it/ebh5mpqdat181/DASH_720.mp4?source=fallback',
-    height: 720,
-    width: 405,
-    duration: 8
-  }
-}
-```
-
-## To-Do
-
-* Improve parsing of reddit posts
-* Authentication for reddit ([OAuth2](https://github.com/reddit-archive/reddit/wiki/OAuth2))
-* Authentication for booru's
+* The resized image may not exists if the original image is not in high resolution. And in some hosts the `width` and `height` are not available of the resized image.
+* Posible ratings are: `['safe', 'questionable', 'explicit', 'unknown']`
+* Posible types are: `['image', 'video', 'gif']`
+* Every image has the hidden property `raw` that contains the raw data of the image.
 
 > If you have any error you can contact me on [Discord](https://discord.gg/zrESMn6)

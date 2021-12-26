@@ -18,7 +18,7 @@
 		},
 		"./lib/index.js"
 	],
-	"description": "A module to get images from reddit and different booru's",
+	"description": "A module to get images from different booru's",
 	"author": {
 		"name": "Fabricio-191",
 		"email": "fabricio19110@gmail.com",
