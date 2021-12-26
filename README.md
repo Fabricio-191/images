@@ -2,7 +2,7 @@
 <a href="https://www.buymeacoffee.com/Fabricio191" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="28" width="135"></a>
 [![Discord](https://img.shields.io/discord/555535212461948936?style=for-the-badge&color=7289da)](https://discord.gg/zrESMn6)
 
-A module to get images from some booru's and reddit
+A module to get images from some booru's
 
 # Booru's
 
@@ -55,7 +55,7 @@ console.log(Images.hosts);
 </details>
 </br>
 
-## Options
+### Options
 
 ```js
 {
@@ -144,5 +144,13 @@ Notes:
 * Posible ratings are: `['safe', 'questionable', 'explicit', 'unknown']`
 * Posible types are: `['image', 'video', 'gif']`
 * Every image has the hidden property `raw` that contains the raw data of the image.
+
+### To-Do
+(Lots of things 😭😭)
+
+* Add support for more hosts
+* Be able to get images from reddit (almost done)
+* Authentication for booru's
+* Authentication for reddit
 
 > If you have any error you can contact me on [Discord](https://discord.gg/zrESMn6)

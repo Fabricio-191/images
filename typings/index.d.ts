@@ -103,8 +103,8 @@ declare module '@fabricio-191/images' {
 		query?: string;
 		limit?: number;
 		page?: number;
-		user?: string;
-		pass?: string;
+		// user?: string;
+		// pass?: string;
 	}
 
 	export default function main(
