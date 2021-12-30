@@ -3,7 +3,6 @@ import { RequestOptions } from 'https';
 declare module '@fabricio-191/images' {
 	type obj = Record<string, unknown>; // object but better
 
-	/*
 	namespace reddit{
 		interface Image{
 			URL: string;
@@ -55,7 +54,6 @@ declare module '@fabricio-191/images' {
 
 		export function subredditExists(subreddit: string): Promise<boolean>;
 	}
-	*/
 
 	type validHost = 'e621.net' |
 		'e926.net' |
@@ -92,8 +90,8 @@ declare module '@fabricio-191/images' {
 		};
 		resized?: {
 			URL: string;
-			width?: number;
-			height?: number;
+			width?: number | null;
+			height?: number | null;
 		};
 		thumbnailURL: string;
 		raw: obj;
@@ -112,12 +110,6 @@ declare module '@fabricio-191/images' {
 		options?: Options,
 		requestOptions?: RequestOptions
 	): Promise<Image[]>;
-
-	export function prepare(
-		host: validHost,
-		options?: Options,
-		requestOptions?: RequestOptions
-	): () => Promise<Image[]>;
 
 	export const hosts: validHost[];
 }
