@@ -2,22 +2,102 @@
 // @ts-nocheck
 const Images = require("../");
 
-Images('rule34.xxx')
+Images('safebooru.org', { query: 'aiz_wallenstein' })
 	.then(images => {
-		console.log(images.map(x => x.thumbnailURL).filter(url => {
-			try{
-				// eslint-disable-next-line no-new
-				new URL(url);
-				return false;
-			}catch{
-				return true;
-			}
-		}))
+		console.log(images.map(x => x.file.URL));
 	})
 
 /*
-Images.reddit.getFromSubreddit('memes')
-	.then(images => {
-		console.log(images[0]);
-	})
+[
+  'https://safebooru.org/images/3609/802309242c8d47913ee8094aefe26344cd1576e0.jpg',
+  'https://safebooru.org/images/3398/4a8ea78b192d93f16c5a184abd82e33a9d909219.jpg',
+  'https://safebooru.org/images/3372/88608b663fecb6a2f6fe2792ee36c870f6cc0e33.jpg',
+  'https://safebooru.org/images/3372/18ebf1b8c68e6dfd0a66ecad94c94af207c8bb31.jpg',
+  'https://safebooru.org/images/3251/7777901a8ddadfc76e64cd6ac431eb066a79972b.jpg',
+  'https://safebooru.org/images/3221/f6391604148a2a87886ca694461336d1a9831481.jpg',
+  'https://safebooru.org/images/3155/7b197a296b87af15fe0e6fef8ce9d9549601f520.jpg',
+  'https://safebooru.org/images/3115/3426a2a1e8648028e6711a2bf97242b8298d9f31.jpg',
+  'https://safebooru.org/images/2891/fb8990ea8e34bc5bab8240e09a89adf1e2f0e69f.jpg',
+  'https://safebooru.org/images/2880/2273a370ea9e2fbf9c51b755cc0d220a8c5aa004.jpg',
+  'https://safebooru.org/images/2875/fe1bb38006fcbb13203d70ab86a07f9b085056e1.jpg',
+  'https://safebooru.org/images/2805/d3264012834ad8752107645d54349c9da9cb0c8c.jpg',
+  'https://safebooru.org/images/2802/b7817d0871ab4c3e2c2e908cfe63af7a406157ba.png',
+  'https://safebooru.org/images/2800/d9ed1b1ae17c2443e28188380f9c7d4e9930af98.jpg',
+  'https://safebooru.org/images/2788/282d4b79a9d8d86725ab36bfbb0b3fea827faead.jpg',
+  'https://safebooru.org/images/2785/f19a7fa8ede6f43f82146cd76ee8a49951543ec0.png',
+  'https://safebooru.org/images/2779/93a64fbda5331eef39b84485eedff4a6bb1e31b2.jpg',
+  'https://safebooru.org/images/2777/1a98558836114076ef20dab86c58fa78ba3b0cd2.jpg',
+  'https://safebooru.org/images/2772/e326ddc350c73927b19933cfebc1dc4252378593.png',
+  'https://safebooru.org/images/2769/3f47c1ed4200e0d8664fde053c36da92ac9f569c.jpg',
+  'https://safebooru.org/images/2768/54ba33767960cf854d91478a3fcb684f89ce4b74.jpg',
+  'https://safebooru.org/images/2763/0e1d696052375136c9dcb927568b0818da298e32.jpg',
+  'https://safebooru.org/images/2710/03b64eaa6541fa50f1ce3b69c2b8313a443006cc.png',
+  'https://safebooru.org/images/2688/17151b97591d64a0b3f86799de260374c0d65c9c.png',
+  'https://safebooru.org/images/2623/f65e0514772fc7710dfc4d3151bc0819dfae5d9f.jpg',
+  'https://safebooru.org/images/2616/8d8553a2318b3a64fe6144f5f07bf8cd85c5f50d.jpg',
+  'https://safebooru.org/images/2310/e1d8e2a27a3b4a0df5912009e80c5ca9e8366f70.jpg',
+  'https://safebooru.org/images/2231/bec11001b7e89d426d14942d354365cf24c0fa81.png',
+  'https://safebooru.org/images/2221/0e27354bbf594d624fac35333af48c845f0565c0.jpg',
+  'https://safebooru.org/images/2175/631911948c34117501ba4e1545620113f24a47c4.jpg',
+  'https://safebooru.org/images/2167/dfb159f65c193fa0e20a7f45c6d04f9f9923ddf0.jpg',
+  'https://safebooru.org/images/2152/065fa849b0ed86f20bc56e21904931716e16f440.jpg',
+  'https://safebooru.org/images/2152/3551e529990615cec4f9d7f898a5ab8276164f13.jpg',
+  'https://safebooru.org/images/2151/bea42c315d2b67cd70be0890482b228034c940b9.png',
+  'https://safebooru.org/images/2149/a36739d5a2dafb2684b47c8af0f3504c370f5690.jpg',
+  'https://safebooru.org/images/2137/7c6bb1da8e743635280be8eeca981b8f35751864.png',
+  'https://safebooru.org/images/2137/b8cf27b23a2bfd2c6a8a186cb7ddcd6a53a9874a.png',
+  'https://safebooru.org/images/2137/9b876c908904701cae29f518369abba8cc8e6e68.png',
+  'https://safebooru.org/images/2136/869adc80d9f080e46c652667783079a9e90bb61a.jpg',
+  'https://safebooru.org/images/2136/a8e85788192e6a3d689f910a3344ce26b0269f41.jpg',
+  'https://safebooru.org/images/2126/7224cf43617c6c65f6ca5310013fe5415c68f4e2.jpg',
+  'https://safebooru.org/images/2117/e0b706d17d8e813fa5e408af7bf82f3aa07baf40.jpg',
+  'https://safebooru.org/images/2104/4c83cdc3a154c1b664cc106a251c28f32e15d81a.jpg',
+  'https://safebooru.org/images/1879/d3d58e0c753c4eda5aeed427bd88acb38a1a8245.jpg',
+  'https://safebooru.org/images/1878/d535ea28cf162f21672a3b8b89fefecdd910cacb.gif',
+  'https://safebooru.org/images/1878/53d77ccca0f82e920b5e21c7413f3411ee9f19ed.gif',
+  'https://safebooru.org/images/1878/f8719b0a69c1411f7430d04d263381f7ee64d6d0.gif',
+  'https://safebooru.org/images/1877/40aceb01a9afc4b3a6c0a61c7c6ec2884d4fb275.gif',
+  'https://safebooru.org/images/1876/f243034d4851ecf24d7fa4b4f4bd4779d46a885a.jpeg',
+  'https://safebooru.org/images/1875/9f5e7a0d821356ff8ad537b39c0b569ed15334cd.jpeg',
+  'https://safebooru.org/images/1867/1789e79f9408c39a60711fc9c2df1ddd059a4e7e.jpeg',
+  'https://safebooru.org/images/1838/68c7f2fae16c59951a6975c237a523dbdd34a5a9.png',
+  'https://safebooru.org/images/1807/a80ffb947b82fca60c4d3e798d1eaa2b891befa6.jpeg',
+  'https://safebooru.org/images/1775/edc9b9d898ff82fad2f75fc85065424552d6de89.jpg',
+  'https://safebooru.org/images/1769/f329d92cfc206c0df102238f1b5facb8fb111a84.png',
+  'https://safebooru.org/images/1701/2dafeafc0e61671929c6a36c3873d31937b9ea82.jpg',
+  'https://safebooru.org/images/1669/cc7a9c28dd8320dcccf3dc879e4e393697b3f457.jpg',
+  'https://safebooru.org/images/1600/6c52e8cf6a20b6170805235155bcf1017541383e.png',
+  'https://safebooru.org/images/63/8ab6c56045627410143bc9d7ae003893a1a3fb16.png',
+  'https://safebooru.org/images/1559/53bf691381c8c27766b2144b4221986bacfa69ab.jpg',
+  'https://safebooru.org/images/1552/0beb3b1861ec5865f84ca3be02582ee4170a088a.jpg',
+  'https://safebooru.org/images/1538/df1da5d0c149ff9e925391e3bcc7da3b5b250d37.jpg',
+  'https://safebooru.org/images/1538/d971f647b156c44ba6493d004f3a998d44a1faeb.jpg',
+  'https://safebooru.org/images/1538/9f95f8cbead6b0f77b6623c1921f4bd8957be36c.jpg',
+  'https://safebooru.org/images/1517/0ef790fe868fb1af6c978f7b066fcbb6345fd919.png',
+  'https://safebooru.org/images/1507/6dfa913eb56e8f9bef9b193b553c1e676ddd52d7.jpg',
+  'https://safebooru.org/images/1487/ebd83927417e2a37447ba6372817bc48e2d10ce3.jpg',
+  'https://safebooru.org/images/1472/1e19ddea7bc213b9cd0025a99bdbcb118df9e529.png',
+  'https://safebooru.org/images/1452/b09a9dee2fe500ef2dc5c1d219269ba62e58e49f.png',
+  'https://safebooru.org/images/1450/bcada4bbac953b37e6c300ef48e23f91ffa6cc37.jpg',
+  'https://safebooru.org/images/1445/d8bc684103b5b7db4f332eedbdc4677c8bfbe659.jpg',
+  'https://safebooru.org/images/1445/56f37fbcfe61bf6a0214da95f7547f85dc926252.jpg',
+  'https://safebooru.org/images/1445/ec2b22997650c1bf8158d5bef777b3343de90f3e.jpg',
+  'https://safebooru.org/images/1444/169172be10a4741a416703650a41a1136bb43c0e.jpg',
+  'https://safebooru.org/images/1442/b7c215b6fb14cee31a1614ec3867b59c54c31af0.png',
+  'https://safebooru.org/images/1441/858094de75f5a4316ecd29b834da8d7957d2355f.jpg',
+  'https://safebooru.org/images/1440/5178d00efc3d7bc4a1aa82fa74f065caa2a1ed0f.png',
+  'https://safebooru.org/images/1439/488a51deb38fb818df89046081aac6379455d484.jpg',
+  'https://safebooru.org/images/1431/371c0234d3ff6c20ca08a5fc9c745030c608b49f.jpg',
+  'https://safebooru.org/images/1430/7475f1f690dc46c4d060e8b2339d6abd6996b50b.jpg',
+  'https://safebooru.org/images/1427/232f9aaf5dfe64b3be165fd58f5c643fa7b08274.jpg',
+  'https://safebooru.org/images/1426/003c528382e3c3936126407d68ac1d7d51a8c07a.jpg',
+  'https://safebooru.org/images/1426/0ec43466b7d68654eec6bbe53c1634af33a10f9f.jpg',
+  'https://safebooru.org/images/1424/b7b112800217827bd2ca2fd503c2925354b96049.jpg',
+  'https://safebooru.org/images/1418/9a44268d27cbd3cda19528712bfa8455eed00652.jpg',
+  'https://safebooru.org/images/1417/00a60ecf4aedd32a2e30b59aec37915ef4532583.jpg',
+  'https://safebooru.org/images/1411/11997871317bf348aee0ddbb88b56cd531c64de2.jpg',
+  'https://safebooru.org/images/1408/d92fe8abd5ce1c3d6a327e50e8d412cd2454dc38.jpg',
+  'https://safebooru.org/images/1408/bb789709dd28b3905b660f89c075bd54e59eecd5.jpg',
+  'https://safebooru.org/images/1404/7add36cfb567d476f19b09d1fbc9df42817147d6.jpg'
+]
 */
