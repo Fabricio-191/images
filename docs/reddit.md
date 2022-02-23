@@ -16,6 +16,13 @@ Images.reddit.search('red hot chili peppers')
      console.log(results[0]);
   })
   .catch(console.error);
+
+
+Images.reddit.subredditExists('nsfw')
+  .then(result => {
+     console.log(result); // true
+  })
+  .catch(console.error);
 ```
 
 ## Options
@@ -33,6 +40,7 @@ Images.reddit.search('red hot chili peppers')
 | limit  | ✔️ | the number of images to get, for default it's 100 (the maximun) |
 | before | ✔️ | the id of the first image to get |
 | after  | ✔️ | the id of the last image to get |
+| subreddit | ✔️ | (only in search) will perform the search in the specified subreddit |
 
 `requestOptions` are [https request options](https://nodejs.org/api/https.html#httpsrequestoptions-callback).
 
