@@ -153,22 +153,26 @@ describe("Booru's", function(){
 	}
 });
 
-/*
-describe('Reddit', function(){
+describe.only('Reddit', function(){
 	this.timeout(25000);
 	this.slow(15000);
 
+	const auth = {
+		user: 'Fabricio191',
+		pass: '94Yiw8toI91Mq7OkMcwLZdXgp9ADKQ',
+	};
+
 	async function testMethod(fn){
-		const images = await fn({ limit: 30 });
+		const images = await fn({ limit: 30, ...auth });
 		const half = Math.floor(images.length / 2);
 
-		const imagesAfter = await fn({ limit: 30, after: images[half - 1].ID });
+		const imagesAfter = await fn({ limit: 30, after: images[half - 1].ID, ...auth });
 		let i = 0;
 		while(images[i + half] && imagesAfter[i]){
 			if(images[i + half].ID !== imagesAfter[i++].ID) throw MyError('"after" param is not working well');
 		}
 
-		const imagesBefore = await fn({ limit: 30, before: images[half - 1].ID });
+		const imagesBefore = await fn({ limit: 30, before: images[half - 1].ID, ...auth });
 		i = 0;
 		while(images[i] && imagesBefore[i]){
 			if(images[i].ID !== imagesBefore[i++].ID) throw MyError('"before" param is not working well');
@@ -197,4 +201,3 @@ describe('Reddit', function(){
 		return images;
 	}));
 });
-*/
