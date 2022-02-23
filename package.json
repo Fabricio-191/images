@@ -1,15 +1,22 @@
 {
 	"name": "@fabricio-191/images",
 	"version": "1.0.0-0",
-	"main": "./lib/index.js",
 	"typings": "./typings/index.d.ts",
 	"license": "Apache License 2.0",
+	"type": "commonjs",
 	"keywords": [
 		"images",
 		"reddit",
-		"discord"
+		"booru",
+		"rule34"
 	],
-	"description": "A module to get images from different categories from reddit",
+	"module": "./lib/index.js",
+	"main": "./lib/index.js",
+	"exports": {
+		"import": "./lib/index.js",
+		"require": "./lib/index.js"
+	},
+	"description": "A module to get images from different booru's",
 	"author": {
 		"name": "Fabricio-191",
 		"email": "fabricio19110@gmail.com",
@@ -18,16 +25,20 @@
 	"deprecated": false,
 	"scripts": {
 		"lint": "eslint . --fix",
-		"git": "git pull && git add . && git commit -m - && git push"
-	},
-	"funding": {
-		"type": "patreon",
-		"url": "https://www.patreon.com/fabricio_191"
+		"test": "mocha test/mocha.js"
 	},
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "^4.20.0",
 		"@typescript-eslint/parser": "^4.20.0",
 		"babel-eslint": "^10.1.0",
-		"eslint": "^7.22.0"
+		"eslint": "^7.22.0",
+		"mocha": "^9.1.2",
+		"ms": "^2.1.3"
+	},
+	"dependencies": {
+		"axios": "^0.26.0"
+	},
+	"optionalDependencies": {
+		"cheerio": "^1.0.0-rc.10"
 	}
 }

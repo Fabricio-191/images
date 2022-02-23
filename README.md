@@ -1,33 +1,38 @@
 ![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg?color=white&style=for-the-badge)
+<a href="https://www.buymeacoffee.com/Fabricio191" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="28" width="135"></a>
+[![Discord](https://img.shields.io/discord/555535212461948936?style=for-the-badge&color=7289da)](https://discord.gg/zrESMn6)
 
-# This is actual trash, i'm going to re-make this, but without the api in the middle, and the cache system inside the module
+# Docs
 
-## These images are obtained from Reddit
+* [Booru's](https://github.com/Fabricio-191/images/docs/booru's.md)
+* [Reddit](https://github.com/Fabricio-191/images/reddit.md)
 
-> If you have any error you can contact me on [Discord](https://discord.gg/zrESMn6)
-
-## Use example
+## Quick usage example
 
 ```js
 const Images = require('@fabricio-191/images');
-const images = new Images({
-	checkImages: true,
-	addDefaultCategories: true,
-});
 
-Images.getFromCategory('cat')
-	.then(console.log)
-	.catch(console.error);
-
-images.getFromSubreddit('nsfw')
-	.then(console.log)
-	.catch(console.error);
-
-images.search('runescape')
-	.then(console.log)
-	.catch(console.error);
+Images('safebooru.org', {
+  query: 'aiz_wallenstein'
+})
+  .then(results => {
+    console.log(results[0]);
+  })
+  .catch(console.error);
 ```
 
+```js
+const Images = require('@fabricio-191/images');
 
-## Image example
+Images.reddit.getFromSubreddit('memes')
+  .then(results => {
+     console.log(results[0]);
+  })
+  .catch(console.error);
 
+Images.reddit.search('red hot chili peppers')
+  .then(results => {
+     console.log(results[0]);
+  })
+  .catch(console.error);
+```

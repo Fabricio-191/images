@@ -1,82 +1,115 @@
-type Image = {
-    title: string;
-    url: string;
-    author: string;
-    createdAtUTC: Date | null;
-    subreddit: string;
-} | null;
+import { RequestOptions } from 'https';
 
-interface SFWMethods {
-    [method: string]: () => Promise<Image>;
-    cat(): Promise<Image>;
-    dog(): Promise<Image>;
-    bird(): Promise<Image>;
-    wallpapers(): Promise<Image>;
-    food(): Promise<Image>;
-    programming(): Promise<Image>;
-    humor(): Promise<Image>;
-    memes(): Promise<Image>;
-    irl(): Promise<Image>;
+declare module '@fabricio-191/images' {
+	type obj = Record<string, unknown>; // object but better
+
+	namespace reddit{
+		interface Image{
+			URL: string;
+			title: string;
+			domain: string;
+			nsfw: boolean;
+			raw: obj;
+			thumbnail?: BasicImage;
+			fileURL: string;
+		}
+		interface Video{
+			URL: string;
+			title: string;
+			domain: string;
+			nsfw: boolean;
+			raw: obj;
+			thumbnail?: BasicImage;
+			video: {
+				URL: string;
+				width: number;
+				height: number;
+				duration: number;
+			}
+		}
+
+		interface SearchOptions{
+			subreddit?: string;
+			limit?: number;
+		}
+
+		interface Options{
+			limit?: number;
+			after?: string;
+			before?: string;
+			pass?: string;
+			user?: string;
+		}
+
+		export function search(
+			searchString: string,
+			options?: SearchOptions
+		): Promise<Array<Image | Video>>;
+
+		export function getFromSubreddit(
+			subreddit: string,
+			options?: Options,
+			requestOptions?: RequestOptions
+		): Promise<Array<Image | Video>>;
+
+		export function subredditExists(subreddit: string): Promise<boolean>;
+	}
+
+	type validHost = 'e621.net' |
+		'e926.net' |
+		'tbib.org' |
+		'yande.re' |
+		'rule34.xxx' |
+		'xbooru.com' |
+		'gelbooru.com' |
+		'hypnohub.net' |
+		'konachan.com' |
+		'konachan.net' |
+		'safebooru.org' |
+		'lolibooru.moe' |
+		'mspabooru.com' |
+		'derpibooru.org' |
+		'rule34.paheal.net' |
+		'danbooru.donmai.us' |
+		'safebooru.donmai.us' |
+		'www.sakugabooru.com' |
+		'shimmie.shishnet.org' |
+		'booru.allthefallen.moe' |
+		'cascards.fluffyquack.com' |
+		'www.booru.realmofastra.ca';
+
+	interface Image {
+		URL: string;
+		tags: string[];
+		rating: 'safe' | 'unknown' | 'explicit' | 'questionable';
+		type: 'image' | 'video' | 'gif';
+		file: {
+			URL: string;
+			width: number;
+			height: number;
+		};
+		resized?: {
+			URL: string;
+			width?: number | null;
+			height?: number | null;
+		};
+		thumbnailURL: string;
+		raw: obj;
+	}
+
+	interface Options {
+		query?: string;
+		limit?: number;
+		page?: number;
+		// user?: string;
+		// pass?: string;
+	}
+
+	export default function main(
+		host: validHost,
+		options?: Options,
+		requestOptions?: RequestOptions
+	): Promise<Image[]>;
+
+	export const hosts: validHost[];
 }
-
-interface NSFWMethods {
-    [method: string]: () => Promise<Image>;
-    general(): Promise<Image>;
-    milf(): Promise<Image>;
-    teen(): Promise<Image>;
-    amateur(): Promise<Image>;
-    hentai(): Promise<Image>;
-    rule34(): Promise<Image>;
-    ecchi(): Promise<Image>;
-    furry(): Promise<Image>;
-    yiff(): Promise<Image>;
-    bdsm(): Promise<Image>;
-    blowjob(): Promise<Image>;
-    ass(): Promise<Image>;
-    anal(): Promise<Image>;
-    boobs(): Promise<Image>;
-    feet(): Promise<Image>;
-    thighs(): Promise<Image>;
-    pussy(): Promise<Image>;
-    curvy(): Promise<Image>;
-    petite(): Promise<Image>;
-    cum(): Promise<Image>;
-    asian(): Promise<Image>;
-    indian(): Promise<Image>;
-    japanese(): Promise<Image>;
-    korean(): Promise<Image>;
-    ebony(): Promise<Image>;
-    white(): Promise<Image>;
-    gif(): Promise<Image>;
-    hardcore(): Promise<Image>;
-    hd(): Promise<Image>;
-    lesbian(): Promise<Image>;
-    masturbation(): Promise<Image>;
-    men(): Promise<Image>;
-    handholding(): Promise<Image>;
-    outfit(): Promise<Image>;
-    bikini(): Promise<Image>;
-    costumes(): Promise<Image>;
-    public(): Promise<Image>;
-    trans(): Promise<Image>;
-    other(): Promise<Image>;
-    gore(): Promise<Image>;
-    gay(): Promise<Image>;
-    gaygifs(): Promise<Image>;
-    bara(): Promise<Image>;
-    yaoi(): Promise<Image>;
-}
-
-declare class Images{
-	constructor(id?: string);
-
-    sfw: SFWMethods;
-    nsfw: NSFWMethods;
-    getFromSubreddit(): Promise<Image>;
-    search(): Promise<Image>;
-
-    static randomID(): string;
-    static init(): Images;
-}
-
-export = Images;
