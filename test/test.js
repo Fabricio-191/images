@@ -2,7 +2,7 @@
 // @ts-nocheck
 const Images = require("../");
 
-Images('shimmie.shishnet.org')
+Images('rule34.xxx')
 	.then(images => {
 		console.log(images);
 	})
