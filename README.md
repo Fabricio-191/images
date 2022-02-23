@@ -4,5 +4,35 @@
 
 # Docs
 
-* [Booru's]()
-* [Reddit]()
+* [Booru's](https://github.com/Fabricio-191/images/docs/booru's.md)
+* [Reddit](https://github.com/Fabricio-191/images/reddit.md)
+
+## Quick usage example
+
+```js
+const Images = require('@fabricio-191/images');
+
+Images('safebooru.org', {
+	query: 'aiz_wallenstein'
+})
+  .then(results => {
+    console.log(results[0]);
+  })
+  .catch(console.error);
+```
+
+```js
+const Images = require('@fabricio-191/images');
+
+Images.reddit.getFromSubreddit('memes')
+  .then(results => {
+     console.log(results[0]);
+  })
+  .catch(console.error);
+
+Images.reddit.search('red hot chili peppers')
+  .then(results => {
+     console.log(results[0]);
+  })
+  .catch(console.error);
+```

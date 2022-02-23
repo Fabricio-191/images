@@ -4,9 +4,11 @@
 const Images = require('@fabricio-191/images');
 
 // Images(host, options, requestOptions)
-Images('safebooru.org')
-  .then(images => {
-    console.log(images[0]);
+Images('safebooru.org', {
+	query: 'aiz_wallenstein'
+})
+  .then(results => {
+    console.log(results[0]);
   })
   .catch(console.error);
 ```

@@ -59,7 +59,63 @@ function MyError(message, stack = ''){
 	return err;
 }
 
-describe.only("Booru's", function(){
+const results = {
+	reddit: [],
+	"booru's": {},
+};
+
+describe('Reddit', function(){
+	this.timeout(25000);
+	this.slow(15000);
+
+	const auth = {
+		user: 'ovYZNNaL97U4vBRwtA0xXg',
+		pass: '94Yiw8toI91Mq7OkMcwLZdXgp9ADKQ',
+	};
+
+	async function testMethod(fn){
+		const images = await fn({ limit: 30, ...auth });
+		const half = Math.floor(images.length / 2);
+
+		const imagesAfter = await fn({ limit: 30, after: images[half - 1].ID, ...auth });
+		let i = 0;
+		while(images[i + half] && imagesAfter[i]){
+			if(images[i + half].ID !== imagesAfter[i++].ID) throw MyError('"after" param is not working well');
+		}
+
+		const imagesBefore = await fn({ limit: 30, before: images[half - 1].ID, ...auth });
+		i = 0;
+		while(images[i] && imagesBefore[i]){
+			if(images[i].ID !== imagesBefore[i++].ID) throw MyError('"before" param is not working well');
+		}
+	}
+
+	it('getFromSubreddit', () => testMethod(async opts => {
+		const images = await Images.reddit.getFromSubreddit('memes', opts);
+
+		if(images.length === 0) throw MyError('0 results');
+		if(images.length > opts.limit){
+			throw MyError('"limit" param is not working well');
+		}
+
+		results.reddit.push(...images);
+		return images;
+	}));
+
+	it('search', () => testMethod(async opts => {
+		const images = await Images.reddit.search('runescape', opts);
+
+		if(images.length === 0) throw MyError('0 results');
+		if(images.length > opts.limit){
+			throw MyError('"limit" param is not working well');
+		}
+
+		results.reddit.push(...images);
+		return images;
+	}));
+});
+
+describe("Booru's", function(){
 	this.timeout(25000);
 	this.slow(15000);
 
@@ -145,6 +201,7 @@ describe.only("Booru's", function(){
 				}
 			}
 
+			results["booru's"][host] = images;
 			await Promise.all([
 				...images.filter(x => x.type !== 'image'),
 				...images.filter(x => x.type === 'image').slice(0, 3),
@@ -153,51 +210,6 @@ describe.only("Booru's", function(){
 	}
 });
 
-describe('Reddit', function(){
-	this.timeout(25000);
-	this.slow(15000);
-
-	const auth = {
-		user: 'Fabricio191',
-		pass: '94Yiw8toI91Mq7OkMcwLZdXgp9ADKQ',
-	};
-
-	async function testMethod(fn){
-		const images = await fn({ limit: 30, ...auth });
-		const half = Math.floor(images.length / 2);
-
-		const imagesAfter = await fn({ limit: 30, after: images[half - 1].ID, ...auth });
-		let i = 0;
-		while(images[i + half] && imagesAfter[i]){
-			if(images[i + half].ID !== imagesAfter[i++].ID) throw MyError('"after" param is not working well');
-		}
-
-		const imagesBefore = await fn({ limit: 30, before: images[half - 1].ID, ...auth });
-		i = 0;
-		while(images[i] && imagesBefore[i]){
-			if(images[i].ID !== imagesBefore[i++].ID) throw MyError('"before" param is not working well');
-		}
-	}
-
-	it('getFromSubreddit', () => testMethod(async opts => {
-		const images = await Images.reddit.getFromSubreddit('memes', opts);
-
-		if(images.length === 0) throw MyError('0 results');
-		if(images.length > opts.limit){
-			throw MyError('"limit" param is not working well');
-		}
-
-		return images;
-	}));
-
-	it('search', () => testMethod(async opts => {
-		const images = await Images.reddit.search('runescape', opts);
-
-		if(images.length === 0) throw MyError('0 results');
-		if(images.length > opts.limit){
-			throw MyError('"limit" param is not working well');
-		}
-
-		return images;
-	}));
+after(() => {
+	require('fs').writeFileSync('./test/results.json', JSON.stringify(results, null, '\t'));
 });
