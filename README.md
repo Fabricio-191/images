@@ -13,7 +13,7 @@
 const Images = require('@fabricio-191/images');
 
 Images('safebooru.org', {
-	query: 'aiz_wallenstein'
+  query: 'aiz_wallenstein'
 })
   .then(results => {
     console.log(results[0]);
