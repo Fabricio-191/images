@@ -59,7 +59,7 @@ function MyError(message, stack = ''){
 	return err;
 }
 
-describe("Booru's", function(){
+describe.only("Booru's", function(){
 	this.timeout(25000);
 	this.slow(15000);
 
@@ -153,7 +153,7 @@ describe("Booru's", function(){
 	}
 });
 
-describe.only('Reddit', function(){
+describe('Reddit', function(){
 	this.timeout(25000);
 	this.slow(15000);
 

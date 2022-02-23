@@ -2,8 +2,7 @@
 // @ts-nocheck
 const Images = require("../");
 
-Images('rule34.paheal.net', { query: 'aiz_wallenstein' })
+Images('shimmie.shishnet.org')
 	.then(images => {
-		console.log(images[0]);
+		console.log(images);
 	})
-
